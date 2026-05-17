@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>動画編集におけるAI活用の現状（2026年5月時点）</title>
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --text: #eaeaea;
+            --text-muted: #a0a0b0;
+            --card-bg: #1e1e3a;
+            --border: #2a2a4a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Helvetica Neue', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.8;
+            padding: 0;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            padding: 60px 24px;
+            text-align: center;
+            border-bottom: 3px solid var(--highlight);
+        }
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+        h2 {
+            font-size: 1.6rem;
+            color: var(--highlight);
+            margin: 48px 0 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+        h3 {
+            font-size: 1.2rem;
+            color: #7ecbff;
+            margin: 28px 0 12px;
+        }
+        h4 {
+            font-size: 1.05rem;
+            color: #b8d4e3;
+            margin: 20px 0 8px;
+        }
+        p, li {
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        ul, ol {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+        li { margin-bottom: 6px; }
+        strong { color: #ffcc70; }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 16px 0;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #1e1e3a, #2a2a5a);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+        .stat-card .number {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--highlight);
+            display: block;
+        }
+        .stat-card .label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: var(--accent);
+            color: #7ecbff;
+            font-weight: 600;
+        }
+        tr:hover { background: rgba(255,255,255,0.03); }
+        .tool-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #7ecbff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin: 2px 4px 2px 0;
+        }
+        .warning {
+            background: rgba(233, 69, 96, 0.1);
+            border-left: 4px solid var(--highlight);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+        }
+        .pipeline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .pipeline-step {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+        .pipeline-step::after {
+            content: '\2192';
+            position: absolute;
+            right: -16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--highlight);
+            font-size: 1.2rem;
+        }
+        .pipeline-step:last-child::after { content: ''; }
+        .pipeline-step .step-num {
+            display: inline-block;
+            background: var(--highlight);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .sources {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        .sources a {
+            color: #7ecbff;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .sources a:hover { text-decoration: underline; }
+        .sources li { margin-bottom: 8px; }
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.6rem; }
+            .stat-grid { grid-template-columns: 1fr; }
+            .pipeline { flex-direction: column; }
+            .pipeline-step::after { content: '\2193'; right: auto; bottom: -16px; top: auto; left: 50%; transform: translateX(-50%); }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>動画編集におけるAI活用の現状</h1>
+    <p>2026年5月時点 Deep Research Report</p>
+</header>
+
+<div class="container">
+
+    <!-- Section 1: 市場概況 -->
+    <h2>1. 市場概況</h2>
+
+    <h3>市場規模と成長率</h3>
+    <div class="stat-grid">
+        <div class="stat-card">
+            <span class="number">$8.4B</span>
+            <span class="label">AI動画編集ソフト グローバル収益（2026年）</span>
+        </div>
+        <div class="stat-card">
+            <span class="number">+62%</span>
+            <span class="label">2024年比 成長率</span>
+        </div>
+        <div class="stat-card">
+            <span class="number">36.2%</span>
+            <span class="label">年間市場成長率（エンタープライズ領域）</span>
+        </div>
+    </div>
+    <p>自動化されたコンテンツ制作と効率的な動画マーケティングツールへの需要が成長を牽引している。</p>
+
+    <h3>市場構造</h3>
+    <p>市場は大きく2つに二分化している：</p>
+    <div class="card">
+        <ol>
+            <li><strong>従来型NLE（非線形編集）＋AIレイヤー</strong>：Adobe Premiere Pro、DaVinci Resolveなど既存ツールにAI機能を統合</li>
+            <li><strong>AIネイティブプラットフォーム</strong>：Runway、Descript、CapCutなどプロンプトベースで映像を構築するツール群</li>
+        </ol>
+    </div>
+
+    <!-- Section 2: 主要ツール -->
+    <h2>2. 主要ツール・プラットフォーム別の最新動向</h2>
+
+    <h3>Adobe Premiere Pro 26.0（2026年1月リリース）</h3>
+    <div class="card">
+        <ul>
+            <li><strong>AIオブジェクトマスク</strong>：ホバー＆クリックで複雑な動く被写体の精密マスクを自動作成・追跡。完全オンデバイスAIモデル使用</li>
+            <li><strong>シェイプマスク高速化</strong>：楕円・矩形・ペンマスクの追跡が最大<strong>20倍高速化</strong></li>
+            <li><strong>フレームトラック編集</strong>：追跡キーフレームの手動調整が数十回→2〜3回に削減</li>
+            <li><strong>Firefly Boards連携</strong>：ストーリーボード作成、B-rollの穴埋め、アセット生成をPremiere内で完結</li>
+            <li><strong>Generative Extend</strong>：クリップの前後をAI生成で自然に延長</li>
+            <li><strong>メディアインテリジェンス強化</strong>：音声・映像の意味検索</li>
+            <li>名称から「Pro」を廃止し「Adobe Premiere」に（ターゲット層拡大を示唆）</li>
+        </ul>
+    </div>
+
+    <h3>DaVinci Resolve 21（NAB 2026で発表）</h3>
+    <div class="card">
+        <ul>
+            <li><strong>IntelliTrack AI</strong>：オブジェクト追跡＆スタビライゼーション（無料版でも使用可）</li>
+            <li><strong>Voice to Subtitle</strong>：自動字幕生成（クリアな音声で90〜95%精度）</li>
+            <li><strong>IntelliSearch</strong>：AI駆動の高速コンテンツ検索</li>
+            <li><strong>CineFocus</strong>：撮影後のフォーカスポイント変更＋ボケ追加</li>
+            <li><strong>顔面ツール</strong>：エイジング/デエイジング、輪郭調整、肌修正</li>
+            <li><strong>UltraSharpen / Motion Deblur</strong>：ソフトフォーカスやブレ映像の救済</li>
+            <li><strong>Photo Page</strong>（新）：静止画にハリウッド級カラーツールを適用</li>
+            <li><strong>価格</strong>：基本AI機能は無料版で利用可。GPU依存の高度機能はStudio版（$295）</li>
+        </ul>
+    </div>
+
+    <h3>Descript（2026年版）</h3>
+    <div class="card">
+        <ul>
+            <li><strong>テキストベース編集</strong>：文字起こしテキストを編集するだけで映像が自動変更（編集時間60〜70%削減）</li>
+            <li><strong>Underlord（AI共同編集者）</strong>：指示に基づいてカット整理、無音削除、フィラーワード除去、ビジュアル追加を自動実行</li>
+            <li><strong>Overdub / AIボイスクローン</strong>：自分の声でAI音声修正（再録なし）</li>
+            <li><strong>30以上のAIツール</strong>搭載：Studio Sound、自動キャプション、AI動画生成など</li>
+            <li>非エンジニアでも使えるUI設計が特徴</li>
+        </ul>
+    </div>
+
+    <h3>CapCut</h3>
+    <div class="card">
+        <ul>
+            <li>月間アクティブユーザー<strong>3.5億人</strong>突破</li>
+            <li>プレミアム有料版でも月額480円</li>
+            <li>23言語対応の自動キャプション生成、AI背景除去、AIスクリプトジェネレーター</li>
+            <li>無料で主要AI機能を利用可能</li>
+        </ul>
+    </div>
+
+    <!-- Section 3: AI動画生成 -->
+    <h2>3. AI動画生成プラットフォーム</h2>
+
+    <h3>Runway Gen-4 / Gen-4.5</h3>
+    <div class="card">
+        <p><span class="tool-badge">プロ向け</span><span class="tool-badge">映画制作</span><span class="tool-badge">広告</span></p>
+        <ul>
+            <li><strong>Gen-4.5</strong>（2026年2月リリース）：ネイティブ音声生成、長尺マルチショット対応、シーン間のキャラクター一貫性向上</li>
+            <li><strong>出力品質</strong>：4K / 60fps対応（放送品質）</li>
+            <li><strong>生成時間</strong>：60〜180秒/クリップ</li>
+            <li>業界のプロダクション基盤としての地位を確立</li>
+        </ul>
+    </div>
+
+    <h3>Pika Labs 2.5</h3>
+    <div class="card">
+        <p><span class="tool-badge">SNS向け</span><span class="tool-badge">高速生成</span><span class="tool-badge">エフェクト特化</span></p>
+        <ul>
+            <li><strong>Pika Effects</strong>：物理演算エフェクト（溶解、圧縮、膨張など）を任意オブジェクトに適用</li>
+            <li><strong>出力品質</strong>：1080p / 最大10秒（TikTok/Reels用途に最適）</li>
+            <li><strong>生成時間</strong>：30〜60秒/クリップ</li>
+            <li>高速イテレーションに最適化されたUI</li>
+        </ul>
+    </div>
+
+    <h3>Google Veo 3.1</h3>
+    <div class="card">
+        <p><span class="tool-badge">無料枠あり</span><span class="tool-badge">高忠実度</span><span class="tool-badge">音声同時生成</span></p>
+        <ul>
+            <li><strong>Veo 3.1</strong>：8秒の高忠実度動画（720p/1080p/4K）＋ネイティブ音声生成</li>
+            <li><strong>3つのモデルティア</strong>：Veo 3.1（最高品質）、Fast（高速）、Lite（低コスト・大量処理向け）</li>
+            <li><strong>新機能</strong>：ポートレート動画（16:9/9:16）、動画延長、フレーム指定生成、参照画像によるガイド</li>
+            <li><strong>Veoアップスケーリング</strong>：AI/カメラ問わず1080p/4Kへ拡大</li>
+            <li><strong>Google Vids統合</strong>：Googleアカウントがあれば月10回まで無料生成（2026年4月〜）</li>
+            <li>Lyria 3による音楽生成、カスタムAIアバター（Pro/Ultra限定）</li>
+        </ul>
+    </div>
+
+    <h3>OpenAI Sora 2（※サービス終了予定）</h3>
+    <div class="card warning">
+        <ul>
+            <li>2025年末リリース。時間的一貫性、物理シミュレーション、同期音声生成が大幅向上</li>
+            <li>最大1分の1080p動画生成、キャラクターカメオ機能</li>
+            <li><strong>重要：2026年4月26日にWebアプリ/モバイルアプリ終了。APIは2026年9月24日まで</strong></li>
+            <li>終了理由：計算リソース不足、コスト圧力、コアエンタープライズ製品への集中</li>
+        </ul>
+    </div>
+
+    <!-- Section 4: ワークフロー -->
+    <h2>4. AI動画編集ワークフローの進化</h2>
+
+    <h3>2024年 → 2026年の進化</h3>
+    <table>
+        <thead>
+            <tr><th>領域</th><th>2024年</th><th>2026年</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>基本機能</td><td>カット・テロップ・音声調整</td><td>シーン認識、感情分析BGM、AI生成映像統合</td></tr>
+            <tr><td>ワークフロー</td><td>部分的AIアシスト</td><td>素材→AI自動カット→字幕→BGM挿入の全自動化</td></tr>
+            <tr><td>品質</td><td>実写と明確に区別可能</td><td>実写との区別が困難なレベルに到達</td></tr>
+            <tr><td>音声</td><td>別途生成が必要</td><td>動画と同時にネイティブ音声生成</td></tr>
+        </tbody>
+    </table>
+
+    <h3>現代的AI動画編集パイプライン</h3>
+    <div class="pipeline">
+        <div class="pipeline-step">
+            <span class="step-num">1</span>
+            <h4>素材取り込み・整理</h4>
+            <p>AI自動タグ付け、シーン分類</p>
+        </div>
+        <div class="pipeline-step">
+            <span class="step-num">2</span>
+            <h4>クリップ切り出し</h4>
+            <p>Opus Clip等で自動セグメンテーション＋縦型リフレーミング</p>
+        </div>
+        <div class="pipeline-step">
+            <span class="step-num">3</span>
+            <h4>生成Bロール</h4>
+            <p>Runway/DomoAIで足りない映像を生成</p>
+        </div>
+        <div class="pipeline-step">
+            <span class="step-num">4</span>
+            <h4>字幕・テロップ</h4>
+            <p>Whisper系で文字起こし→AI整文</p>
+        </div>
+        <div class="pipeline-step">
+            <span class="step-num">5</span>
+            <h4>多言語化</h4>
+            <p>リップシンク付き多言語版を自動生成</p>
+        </div>
+        <div class="pipeline-step">
+            <span class="step-num">6</span>
+            <h4>仕上げ</h4>
+            <p>QC・最終書き出し</p>
+        </div>
+    </div>
+
+    <h3>生産性向上の実績</h3>
+    <div class="stat-grid">
+        <div class="stat-card">
+            <span class="number">80-97%</span>
+            <span class="label">制作タイムライン短縮率</span>
+        </div>
+        <div class="stat-card">
+            <span class="number">13日→27分</span>
+            <span class="label">60秒マーケティング動画の制作時間</span>
+        </div>
+        <div class="stat-card">
+            <span class="number">81%</span>
+            <span class="label">マーケターが3時間以上節約と報告</span>
+        </div>
+    </div>
+
+    <!-- Section 5: 課題と限界 -->
+    <h2>5. 現在の課題と限界</h2>
+
+    <h3>技術的課題</h3>
+    <div class="card">
+        <ul>
+            <li><strong>キャラクター一貫性</strong>：長尺動画で顔立ち・服装のディテールがカット毎に変化する問題が完全未解決</li>
+            <li><strong>物理的リアリズム</strong>：複雑な物理演算（流体、布、髪の毛）はまだ不完全</li>
+            <li><strong>長尺動画</strong>：数分以上の一貫した動画生成は依然として困難</li>
+            <li><strong>細かい制御性</strong>：「だいたい良い」は出せるが、ピクセル単位の精密制御はプロには不十分な場合あり</li>
+        </ul>
+    </div>
+
+    <h3>著作権・法的課題</h3>
+    <div class="card warning">
+        <ul>
+            <li>AIモデルの<strong>学習データの出所が不明確</strong>→意図しない著作権侵害リスク</li>
+            <li><strong>生成物の著作権帰属</strong>：法的議論が未決着（国・地域で対応が異なる）</li>
+            <li>他者の作品に<strong>酷似した出力</strong>が生成される可能性</li>
+            <li>ディープフェイク技術の悪用（フェイクニュース拡散）</li>
+        </ul>
+    </div>
+
+    <h3>規制・対策の動向</h3>
+    <div class="card">
+        <ul>
+            <li><strong>YouTube</strong>：AI生成映像に開示ラベル表示を義務化</li>
+            <li><strong>Google SynthID</strong>：目に見えない透かしでAI生成物を証明する技術</li>
+            <li><strong>Adobe</strong>：学習データに顧客データを使用しないことを明言</li>
+            <li><strong>OpenAI/Microsoft</strong>：公人のディープフェイクやNSFWコンテンツ生成を拒否するResponsible AI機能</li>
+        </ul>
+    </div>
+
+    <h3>ビジネス上の注意点</h3>
+    <div class="card">
+        <ul>
+            <li>商用利用の可否確認が必須（ツールにより異なる）</li>
+            <li>生成コンテンツの著作権帰属の確認</li>
+            <li>学習データの素性の確認（特に商用利用時）</li>
+            <li>AI＝万能ではない：ストーリーテリング、ペーシング、感情的インパクト、ブランドニュアンスは人間が不可欠</li>
+        </ul>
+    </div>
+
+    <!-- Section 6: 用途別おすすめ -->
+    <h2>6. 用途別おすすめツール（2026年5月時点）</h2>
+    <table>
+        <thead>
+            <tr><th>用途</th><th>推奨ツール</th><th>月額目安</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>初心者・SNS運用</td><td>CapCut / Filmora</td><td>無料〜480円</td></tr>
+            <tr><td>YouTube・ポッドキャスト</td><td>Descript</td><td>$24〜</td></tr>
+            <tr><td>プロ映像制作</td><td>Premiere Pro / DaVinci Resolve Studio</td><td>$2,728/年 / $295買い切り</td></tr>
+            <tr><td>AI動画生成（SNS向け）</td><td>Pika Labs</td><td>$8〜</td></tr>
+            <tr><td>AI動画生成（プロ向け）</td><td>Runway Gen-4.5</td><td>$12〜</td></tr>
+            <tr><td>AI動画生成（コスパ重視）</td><td>Google Veo 3.1（Google Vids経由）</td><td>無料〜</td></tr>
+            <tr><td>テキストベース編集</td><td>Descript</td><td>$24〜</td></tr>
+            <tr><td>ショートクリップ切り出し</td><td>Opus Clip</td><td>$15〜</td></tr>
+        </tbody>
+    </table>
+
+    <!-- Section 7: 今後の展望 -->
+    <h2>7. 今後の展望</h2>
+
+    <h3>短期（2026年後半〜2027年）</h3>
+    <div class="card">
+        <ul>
+            <li>Runway Gen-5、Google Veo 4など次世代モデルのリリースが予想される</li>
+            <li>リアルタイムAI編集（レンダリング不要の即時プレビュー）の普及</li>
+            <li>AIエージェントによる「完全自律編集」の実用化が進む</li>
+        </ul>
+    </div>
+
+    <h3>中長期（2027年〜）</h3>
+    <div class="card">
+        <ul>
+            <li>「動画版ChatGPT」的なインターフェース（会話で動画を作る）の主流化</li>
+            <li>AI生成と実写の完全融合（区別不可能レベル）</li>
+            <li>法規制の整備（生成AI著作権法の確立）</li>
+            <li>パーソナライズド動画の大規模自動生成（視聴者ごとに異なる映像）</li>
+        </ul>
+    </div>
+
+    <!-- Sources -->
+    <div class="sources">
+        <h2>参考ソース</h2>
+        <ul>
+            <li><a href="https://aidailyshot.com/blog/ai-video-editing-tools-2026-state-of-the-market" target="_blank">AI Video Editing Tools 2026: Top Picks & Trends | AI Daily Shot</a></li>
+            <li><a href="https://resource.digen.ai/professional-ai-video-editing-tools-2026/" target="_blank">10 Best Professional AI Video Editing Tools 2026</a></li>
+            <li><a href="https://blog.adobe.com/en/publish/2026/01/20/new-ai-powered-video-editing-tools-premiere-major-motion-design-upgrades-after-effects" target="_blank">New AI-powered video editing tools in Premiere | Adobe Blog</a></li>
+            <li><a href="https://www.kunalganglani.com/blog/davinci-resolve-21-ai-features-review" target="_blank">DaVinci Resolve 21 AI Features Tested</a></li>
+            <li><a href="https://www.creativeainews.com/blog/davinci-resolve-21-beta-ai-tools-nab-2026/" target="_blank">DaVinci Resolve 21 Beta: 10 New AI Video Editing Tools (NAB 2026)</a></li>
+            <li><a href="https://aidigitalspace.com/runway-ml-vs-pika-labs/" target="_blank">Runway ML vs Pika Labs (2026)</a></li>
+            <li><a href="https://pxz.ai/blog/sora-vs-runway-vs-pika-best-ai-video-generator-2026-comparison" target="_blank">Sora vs Runway vs Pika: AI Video Generator Comparison</a></li>
+            <li><a href="https://www.veo3ai.io/blog/veo-3-1-new-features-update-2026" target="_blank">Veo 3.1: Google's Latest AI Video Update (2026)</a></li>
+            <li><a href="https://help.openai.com/en/articles/20001152-what-to-know-about-the-sora-discontinuation" target="_blank">What to know about the Sora discontinuation | OpenAI</a></li>
+            <li><a href="https://movieimpact.net/columns/2026-04-16-ai-video-editing-strategy-2026" target="_blank">映像制作のプロが紐解く「AI動画編集」の現在地（2026年最新）</a></li>
+            <li><a href="https://my-best.com/29310" target="_blank">AI動画編集ツールのおすすめ人気ランキング【2026年5月】| マイベスト</a></li>
+            <li><a href="https://digital-front.jp/blog/1406/" target="_blank">AIエージェントが動画を自動編集？2026年に導入すべき「AI動画編集ソフト」比較</a></li>
+            <li><a href="https://movieimpact.net/columns/2026-04-17-ai-video-production-disadvantages-2026" target="_blank">専門家が警告する「AI動画制作 デメリット」の真実（2026年）</a></li>
+            <li><a href="https://www.acrovision.jp/blog/?p=1003" target="_blank">生成AI動画活用の法的課題と対策法</a></li>
+            <li><a href="https://www.vidmetoo.com/descript-review/" target="_blank">Descript Review 2026: Text-Based Video Editing</a></li>
+            <li><a href="https://www.gudsho.com/blog/video-editing-statistics/" target="_blank">30+ AI Generated Video Editing Statistics for 2026</a></li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <p>最終更新：2026年5月17日</p>
+</footer>
+
+</body>
+</html>
