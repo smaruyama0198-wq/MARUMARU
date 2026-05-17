@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Research Skill for Claude Code — 解説＆使い方ガイド</title>
+    <style>
+        :root {
+            --bg: #0f1724;
+            --surface: #162032;
+            --card: #1c2940;
+            --border: #2a3f5f;
+            --accent: #4f9cf7;
+            --accent-light: #7ab8ff;
+            --highlight: #f59e0b;
+            --green: #34d399;
+            --red: #f87171;
+            --text: #e8edf5;
+            --text-muted: #8b9ab8;
+            --text-dim: #5a6e8a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.85;
+            font-size: 15px;
+        }
+
+        /* Header */
+        .hero {
+            background: linear-gradient(160deg, #1a2a4a 0%, #0f1724 50%, #1a1a3a 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 72px 24px 56px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-light), var(--highlight));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+        .hero .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        .hero .meta {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* Sections */
+        h2 {
+            font-size: 1.5rem;
+            color: var(--accent-light);
+            margin: 56px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+        h3 {
+            font-size: 1.15rem;
+            color: var(--green);
+            margin: 32px 0 12px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 16px 0;
+        }
+        .card-accent {
+            border-left: 4px solid var(--accent);
+        }
+        .card-warning {
+            border-left: 4px solid var(--highlight);
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        /* Problem/Solution */
+        .problem-box {
+            background: rgba(248, 113, 113, 0.08);
+            border: 1px solid rgba(248, 113, 113, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+        }
+        .problem-box h4 { color: var(--red); margin-bottom: 8px; }
+        .solution-box {
+            background: rgba(52, 211, 153, 0.08);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+        }
+        .solution-box h4 { color: var(--green); margin-bottom: 8px; }
+
+        /* Steps */
+        .step {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            margin: 24px 0;
+            position: relative;
+        }
+        .step-number {
+            position: absolute;
+            top: -14px;
+            left: 24px;
+            background: var(--accent);
+            color: white;
+            font-weight: 800;
+            font-size: 0.8rem;
+            padding: 4px 14px;
+            border-radius: 20px;
+        }
+        .step h3 {
+            margin-top: 4px;
+            color: var(--text);
+        }
+
+        /* Code blocks */
+        pre {
+            background: #0a0f1a;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            overflow-x: auto;
+            margin: 12px 0;
+            font-size: 0.9rem;
+        }
+        code {
+            font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+            color: var(--accent-light);
+        }
+        pre code { color: #c8d6e5; }
+        .code-comment { color: #5a6e8a; }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.92rem;
+        }
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: var(--surface);
+            color: var(--accent-light);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        tr:hover td { background: rgba(79, 156, 247, 0.04); }
+
+        /* Lists */
+        ul, ol { padding-left: 20px; margin: 12px 0; }
+        li { margin-bottom: 8px; color: var(--text); }
+        li strong { color: var(--highlight); }
+
+        /* Phase flow */
+        .phase-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        .phase-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .phase-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+        .phase-item .num {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            line-height: 28px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .phase-item .phase-name {
+            font-weight: 700;
+            color: var(--text);
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .phase-item .phase-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Tip boxes */
+        .tip {
+            background: rgba(79, 156, 247, 0.08);
+            border: 1px solid rgba(79, 156, 247, 0.25);
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin: 12px 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .tip::before {
+            content: '💡 ';
+        }
+
+        /* File tree */
+        .file-tree {
+            background: #0a0f1a;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 24px;
+            font-family: 'SF Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 2;
+            color: #c8d6e5;
+            margin: 16px 0;
+        }
+        .file-tree .folder { color: var(--accent-light); font-weight: 600; }
+        .file-tree .comment { color: var(--text-dim); font-style: italic; }
+
+        /* Quality badges */
+        .quality-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .quality-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+        .quality-item .q-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 4px;
+        }
+        .quality-item .q-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--green);
+        }
+
+        /* Summary */
+        .summary-box {
+            background: linear-gradient(135deg, rgba(79, 156, 247, 0.1), rgba(245, 158, 11, 0.08));
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 32px;
+            margin: 32px 0;
+            text-align: center;
+        }
+        .summary-box p {
+            font-size: 1.05rem;
+            color: var(--text);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            padding: 40px 0 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.6rem; }
+            .phase-flow { grid-template-columns: 1fr 1fr; }
+            .quality-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>Deep Research Skill</h1>
+    <p class="subtitle">Claude Codeを「本格リサーチエージェント」として動かす拡張機能の仕組みと使い方</p>
+    <p class="meta">元資料：199-biotechnologies/claude-deep-research-skill | 作成日：2026-05-17</p>
+</div>
+
+<div class="container">
+
+    <!-- ===== このSkillが解決する問題 ===== -->
+    <h2>このSkillが解決する問題</h2>
+
+    <div class="problem-box">
+        <h4>普通のAIチャットの限界</h4>
+        <p>ChatGPTやClaudeに質問すると、すぐに答えが返ってきます。でもその答えには大きな弱点があります。</p>
+        <ul>
+            <li>AIが知っているのは<strong>学習した時点までの情報</strong>だけ</li>
+            <li>情報が正しいかどうかの<strong>検証をしてくれない</strong></li>
+            <li><strong>引用元（ソース）</strong>が提示されない</li>
+            <li>仕事の意思決定に使える「信頼できるレポート」とは程遠い</li>
+        </ul>
+    </div>
+
+    <div class="solution-box">
+        <h4>Deep Research Skillの解決策</h4>
+        <p>Claude Code（ターミナルで動くClaudeのツール）に追加できる拡張機能（Skill）で、Claudeを<strong>「本格的なリサーチアナリスト」</strong>として動かす仕組みです。</p>
+        <ul>
+            <li>Web検索を何度も自動で実行して情報を集める</li>
+            <li>複数のソースで裏取り（三角測量）する</li>
+            <li>自分で批判的にチェックし、穴があれば追加検索する</li>
+            <li>引用付きの本格レポートを自動生成する</li>
+        </ul>
+    </div>
+
+    <!-- ===== 使い方フロー ===== -->
+    <h2>使い方フロー（5ステップ）</h2>
+
+    <div class="step">
+        <span class="step-number">STEP 0</span>
+        <h3>使う前に必要なものを揃える</h3>
+        <table>
+            <thead><tr><th>必要なもの</th><th>備考</th></tr></thead>
+            <tbody>
+                <tr><td>macOS または Linux</td><td>WindowsはWSLが必要</td></tr>
+                <tr><td>ターミナル</td><td>macOSなら「ターミナル.app」が最初から入っている</td></tr>
+                <tr><td>Claude Code</td><td>Anthropicの公式CLIツール</td></tr>
+                <tr><td>git</td><td>ほとんどのMacに最初から入っている</td></tr>
+            </tbody>
+        </table>
+        <div class="tip">Claude Codeがまだない場合は、ターミナルで以下を実行します</div>
+        <pre><code>npm install -g @anthropic-ai/claude-code</code></pre>
+    </div>
+
+    <div class="step">
+        <span class="step-number">STEP 1</span>
+        <h3>Skillをインストールする（1回だけ）</h3>
+        <p>ターミナルで以下の1行をコピー＆ペーストして Enter を押します。</p>
+        <pre><code><span class="code-comment"># Claude Codeのスキルフォルダにダウンロード</span>
+git clone https://github.com/199-biotechnologies/claude-deep-research-skill.git ~/.claude/skill</code></pre>
+        <p>完了メッセージが出たらインストール終了です。これだけです。</p>
+        <div class="card-warning card" style="margin-top: 16px;">
+            <p><strong>オプション：search-cli</strong></p>
+            <p>複数の検索エンジン（Brave・Serper・Exa・Jina・Firecrawl）を使いたい場合は追加でインストールできます。ただし各サービスのAPIキー取得が必要なので、まずは入れなくてもOKです。</p>
+            <pre><code>brew tap 199-biotechnologies/tap && brew install search-cli
+search config set keys.brave YOUR_KEY</code></pre>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">STEP 2</span>
+        <h3>Claude Code を起動する</h3>
+        <p>ターミナルで以下を入力して Claude Code を起動します。</p>
+        <pre><code>claude</code></pre>
+        <p>チャット画面のようなインターフェースが表示されれば準備完了です。</p>
+        <div class="tip">初回起動時はAnthropicアカウントへのログインが求められます。案内に従ってブラウザで認証してください。</div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">STEP 3</span>
+        <h3>リサーチを指示する</h3>
+        <p>Claude Codeのチャット欄に、以下の形式で入力します。</p>
+        <pre><code><span class="code-comment"># 基本形</span>
+deep research on [調べたいテーマ]
+
+<span class="code-comment"># モード指定あり</span>
+deep research in ultradeep mode: [テーマ]</code></pre>
+
+        <h4 style="color: var(--highlight); margin-top: 20px;">リサーチモードの選び方</h4>
+        <table>
+            <thead>
+                <tr><th>モード</th><th>所要時間</th><th>フェーズ数</th><th>こんなときに使う</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Quick</strong></td><td>2〜5分</td><td>3</td><td>ざっくり知りたい・最初の下調べ</td></tr>
+                <tr><td><strong>Standard</strong></td><td>5〜10分</td><td>6</td><td>迷ったらこれ。ほとんどの用途に対応</td></tr>
+                <tr><td><strong>Deep</strong></td><td>10〜20分</td><td>8</td><td>重要な意思決定・複雑なテーマ</td></tr>
+                <tr><td><strong>UltraDeep</strong></td><td>20〜45分</td><td>8以上</td><td>完璧なレポートが必要なとき</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="step">
+        <span class="step-number">STEP 4</span>
+        <h3>自動実行（待つだけ）</h3>
+        <p>あとはClaudeが自動で調査を進めます。画面に進捗が流れてきますが、何もしなくて大丈夫です。内部では以下の<strong>8フェーズ</strong>が順番に動いています。</p>
+    </div>
+
+    <!-- 8フェーズの視覚化 -->
+    <h3>内部で動く8フェーズ</h3>
+    <div class="phase-flow">
+        <div class="phase-item">
+            <span class="num">1</span>
+            <span class="phase-name">Scope</span>
+            <span class="phase-desc">何を調べるか整理する</span>
+        </div>
+        <div class="phase-item">
+            <span class="num">2</span>
+            <span class="phase-name">Plan</span>
+            <span class="phase-desc">調査方針を立てる</span>
+        </div>
+        <div class="phase-item">
+            <span class="num">3</span>
+            <span class="phase-name">Retrieve</span>
+            <span class="phase-desc">5〜10件の検索を同時実行</span>
+        </div>
+        <div class="phase-item">
+            <span class="num">4</span>
+            <span class="phase-name">Triangulate</span>
+            <span class="phase-desc">複数ソースで照合・信頼性評価</span>
+        </div>
+        <div class="phase-item">
+            <span class="num">5</span>
+            <span class="phase-name">Outline</span>
+            <span class="phase-desc">レポートの骨格を見直す</span>
+        </div>
+        <div class="phase-item">
+            <span class="num">6</span>
+            <span class="phase-name">Synthesize</span>
+            <span class="phase-desc">情報を統合して文章化</span>
+        </div>
+        <div class="phase-item">
+            <span class="num">7</span>
+            <span class="phase-name">Critique</span>
+            <span class="phase-desc">3つの視点で批判的チェック</span>
+        </div>
+        <div class="phase-item">
+            <span class="num">8</span>
+            <span class="phase-name">Refine</span>
+            <span class="phase-desc">修正して最終パッケージ化</span>
+        </div>
+    </div>
+
+    <div class="card card-accent">
+        <p><strong>フェーズ7「Critique」の仕組み</strong></p>
+        <p>3つの異なる視点でレポートをチェックします：</p>
+        <ul>
+            <li><strong>懐疑的な実務家</strong> — 「本当にこれで実務に使えるのか？」</li>
+            <li><strong>反論を探す批評家</strong> — 「この結論を否定する情報はないか？」</li>
+            <li><strong>実装エンジニア</strong> — 「具体的にどう実装するのか不明確な点は？」</li>
+        </ul>
+        <p style="margin-top: 12px; color: var(--highlight);">重大な抜け穴が見つかると自動でフェーズ3に戻って追加検索します。<br>これが他のAIリサーチとの最大の違いです。</p>
+    </div>
+
+    <div class="step">
+        <span class="step-number">STEP 5</span>
+        <h3>レポートを確認する</h3>
+        <p>完了すると、以下のフォルダにレポートが自動保存されます。</p>
+        <pre><code>~/Documents/[トピック名]_Research_[日付]/</code></pre>
+        <p>同じ内容が<strong>3つの形式</strong>で出力されます：</p>
+        <table>
+            <thead><tr><th>形式</th><th>特徴</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Markdown（.md）</strong></td><td>テキストの正式データ。編集・加工しやすい</td></tr>
+                <tr><td><strong>HTML</strong></td><td>McKinsey風デザイン。完了後に自動でブラウザが開く</td></tr>
+                <tr><td><strong>PDF</strong></td><td>印刷・共有向け。WeasyPrintで整形済み</td></tr>
+            </tbody>
+        </table>
+        <div class="tip">HTMLファイルが自動でブラウザに開くので、まずそこから確認するのがいちばん見やすいです</div>
+    </div>
+
+    <!-- ===== 品質管理 ===== -->
+    <h2>品質管理の仕組み</h2>
+    <p>出力されるレポートには厳格な品質基準が設定されています。</p>
+
+    <div class="quality-grid">
+        <div class="quality-item">
+            <span class="q-label">最低ソース数</span>
+            <span class="q-value">10以上</span>
+        </div>
+        <div class="quality-item">
+            <span class="q-label">主要主張の根拠</span>
+            <span class="q-value">3つ以上</span>
+        </div>
+        <div class="quality-item">
+            <span class="q-label">サマリー文量</span>
+            <span class="q-value">200〜400語</span>
+        </div>
+        <div class="quality-item">
+            <span class="q-label">各セクション</span>
+            <span class="q-value">600〜2,000語</span>
+        </div>
+        <div class="quality-item">
+            <span class="q-label">散文比率</span>
+            <span class="q-value">80%以上</span>
+        </div>
+        <div class="quality-item">
+            <span class="q-label">参考文献</span>
+            <span class="q-value">URL付き完全書誌</span>
+        </div>
+    </div>
+
+    <div class="card card-accent">
+        <p><strong>自動検証スクリプト</strong></p>
+        <p>完成後に以下の2つのスクリプトが自動で走ります：</p>
+        <ul>
+            <li><code>validate_report.py</code> — 9項目の構造チェック</li>
+            <li><code>verify_citations.py</code> — URL実在確認＆ハルシネーション（嘘情報）検出</li>
+        </ul>
+        <p style="margin-top: 8px; color: var(--text-muted);">問題があれば自動修正を最大3回試みます。</p>
+    </div>
+
+    <!-- ===== 検索ツール ===== -->
+    <h2>検索ツールの優先順位</h2>
+    <table>
+        <thead><tr><th>ツール</th><th>役割</th></tr></thead>
+        <tbody>
+            <tr><td><strong>search-cli</strong></td><td>メイン検索。インストール済みならすべての検索はここ経由</td></tr>
+            <tr><td><strong>WebSearch</strong></td><td>search-cliが使えない・レート制限時のフォールバック（代替手段）</td></tr>
+            <tr><td><strong>Exa MCP</strong></td><td>オプション。セマンティック検索（意味で検索）を追加したい場合</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ===== ファイル構成 ===== -->
+    <h2>アーキテクチャ（ファイル構成）</h2>
+    <p>Skill全体は以下のようなフォルダ構成になっています。</p>
+
+    <div class="file-tree">
+        <span class="folder">deep-research/</span><br>
+        ├── SKILL.md <span class="comment">← エントリーポイント（約100行）</span><br>
+        ├── <span class="folder">reference/</span><br>
+        │&nbsp;&nbsp;&nbsp;├── methodology.md <span class="comment">← 8フェーズの詳細定義</span><br>
+        │&nbsp;&nbsp;&nbsp;├── report-assembly.md <span class="comment">← レポート組み立てルール</span><br>
+        │&nbsp;&nbsp;&nbsp;├── quality-gates.md <span class="comment">← 品質基準の定義</span><br>
+        │&nbsp;&nbsp;&nbsp;├── html-generation.md <span class="comment">← HTML生成ルール</span><br>
+        │&nbsp;&nbsp;&nbsp;└── continuation.md <span class="comment">← 中断時の再開方法</span><br>
+        ├── <span class="folder">templates/</span><br>
+        │&nbsp;&nbsp;&nbsp;├── report_template.md <span class="comment">← Markdownテンプレート</span><br>
+        │&nbsp;&nbsp;&nbsp;└── mckinsey_report_template.html <span class="comment">← HTMLテンプレート</span><br>
+        ├── <span class="folder">scripts/</span><br>
+        │&nbsp;&nbsp;&nbsp;├── validate_report.py <span class="comment">← 9項目の構造チェック</span><br>
+        │&nbsp;&nbsp;&nbsp;├── verify_citations.py <span class="comment">← URL実在確認・嘘検出</span><br>
+        │&nbsp;&nbsp;&nbsp;├── source_evaluator.py <span class="comment">← ソース信頼性スコアリング</span><br>
+        │&nbsp;&nbsp;&nbsp;├── citation_manager.py <span class="comment">← 引用管理</span><br>
+        │&nbsp;&nbsp;&nbsp;├── md_to_html.py <span class="comment">← Markdown→HTML変換</span><br>
+        │&nbsp;&nbsp;&nbsp;└── research_engine.py <span class="comment">← コア制御エンジン</span><br>
+        └── <span class="folder">tests/</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;└── fixtures/
+    </div>
+
+    <!-- ===== まとめ ===== -->
+    <h2>まとめ</h2>
+
+    <div class="summary-box">
+        <p>このSkillの本質は、<strong>「Claudeを1つのチャットボットとして使うのではなく、複数の役割を持つエージェントチームとして動かす」</strong>ことです。</p>
+        <p style="margin-top: 16px; color: var(--text-muted);">調査担当・批評担当・検証担当がそれぞれ動き、最終的に引用付きの本格レポートが完成する構造になっています。</p>
+    </div>
+
+    <div class="card">
+        <p><strong>こんな場面で威力を発揮します：</strong></p>
+        <ul>
+            <li>競合分析のレポート作成</li>
+            <li>新技術・新サービスの調査</li>
+            <li>意思決定のための根拠収集</li>
+            <li>市場動向のリサーチ</li>
+        </ul>
+        <p style="margin-top: 12px; color: var(--text-muted);">普通にClaudeに聞くだけと比べて、出力の信頼性が格段に上がります。</p>
+    </div>
+
+</div>
+
+<footer>
+    <p>Deep Research Skill 解説ガイド | 最終更新：2026年5月17日</p>
+</footer>
+
+</body>
+</html>
