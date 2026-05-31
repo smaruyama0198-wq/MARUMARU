@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI×動画編集 Udemy教材調査レポート（2026年5月）</title>
+  <style>
+    :root {
+      --primary: #6C63FF;
+      --primary-light: #EEF0FF;
+      --accent: #FF6584;
+      --green: #2ECC71;
+      --green-light: #EAFAF1;
+      --red: #E74C3C;
+      --red-light: #FDEDEC;
+      --yellow: #F39C12;
+      --yellow-light: #FEF9E7;
+      --gray: #6C757D;
+      --gray-light: #F8F9FA;
+      --dark: #1A1A2E;
+      --text: #2D3436;
+      --border: #E0E0E0;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Yu Gothic', sans-serif;
+      background: #F4F6FC;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ===== HEADER ===== */
+    .hero {
+      background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+      color: white;
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+    .hero .badge {
+      display: inline-block;
+      background: rgba(108,99,255,0.3);
+      border: 1px solid rgba(108,99,255,0.6);
+      color: #A89FFF;
+      font-size: 12px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      letter-spacing: 0.05em;
+    }
+    .hero h1 {
+      font-size: clamp(22px, 4vw, 36px);
+      font-weight: 800;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 span { color: #A89FFF; }
+    .hero .subtitle {
+      font-size: 15px;
+      color: rgba(255,255,255,0.65);
+      max-width: 600px;
+      margin: 0 auto 28px;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .hero-meta .chip {
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+    }
+    .hero-meta .chip strong { color: #A89FFF; }
+
+    /* ===== LAYOUT ===== */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section {
+      padding: 48px 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .section-number {
+      background: var(--primary);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+    .section-header h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    /* ===== SUMMARY BOX ===== */
+    .summary-box {
+      background: var(--primary-light);
+      border-left: 4px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 32px;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+    .summary-box strong { color: var(--primary); }
+
+    /* ===== ALERT BOXES ===== */
+    .alert {
+      display: flex;
+      gap: 14px;
+      padding: 18px 22px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .alert-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .alert.warning { background: var(--yellow-light); border-left: 4px solid var(--yellow); }
+    .alert.info    { background: var(--primary-light); border-left: 4px solid var(--primary); }
+    .alert.danger  { background: var(--red-light);    border-left: 4px solid var(--red); }
+    .alert.success { background: var(--green-light);  border-left: 4px solid var(--green); }
+
+    /* ===== COURSE CARDS ===== */
+    .course-card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      border-top: 4px solid var(--primary);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .course-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .course-card.top { border-top-color: #FFB700; }
+    .course-card.low { border-top-color: var(--red); }
+
+    .course-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.4;
+    }
+    .course-title a { color: inherit; text-decoration: none; }
+    .course-title a:hover { color: var(--primary); }
+
+    .course-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--gray-light);
+      color: var(--gray);
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .tag.lang-ja { background: #EEF0FF; color: var(--primary); }
+    .tag.lang-en { background: #FFF3E0; color: #E65100; }
+
+    .stars {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+    }
+    .stars .score { font-weight: 700; color: var(--dark); }
+    .stars .count { font-size: 12px; color: var(--gray); }
+
+    .tools-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tool-chip {
+      background: #F0F4FF;
+      color: #3D5AF1;
+      font-size: 11px;
+      padding: 2px 9px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .review-bubble {
+      background: var(--gray-light);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #444;
+      font-style: italic;
+      position: relative;
+    }
+    .review-bubble::before {
+      content: '"';
+      font-size: 28px;
+      color: var(--primary);
+      opacity: 0.4;
+      font-style: normal;
+      line-height: 1;
+      display: block;
+      margin-bottom: -6px;
+    }
+
+    /* ===== TABLE ===== */
+    .table-wrap { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      font-size: 14px;
+    }
+    th {
+      background: var(--dark);
+      color: white;
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    th:first-child { border-radius: 12px 0 0 0; }
+    th:last-child  { border-radius: 0 12px 0 0; }
+    td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #FAFAFA; }
+    tr:hover td { background: var(--primary-light); }
+    .rating-high { color: #E67E22; font-weight: 700; }
+    .rating-low  { color: var(--red); font-weight: 700; }
+
+    /* ===== WORKFLOW ===== */
+    .workflow {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      flex-wrap: wrap;
+      margin: 28px 0;
+    }
+    .workflow-step {
+      flex: 1;
+      min-width: 160px;
+      text-align: center;
+      position: relative;
+    }
+    .workflow-step:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -16px;
+      top: 28px;
+      font-size: 22px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .step-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      border: 3px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin: 0 auto 10px;
+    }
+    .step-label { font-size: 12px; font-weight: 700; color: var(--dark); }
+    .step-sub   { font-size: 11px; color: var(--gray); margin-top: 4px; }
+
+    /* ===== VERIFIED / REFUTED ===== */
+    .finding-card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px 28px;
+      margin-bottom: 16px;
+      border-left: 5px solid var(--green);
+    }
+    .finding-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+    .finding-card p {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.7;
+    }
+    .verdict {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .verdict.ok  { background: var(--green-light);  color: #1E8449; }
+    .verdict.med { background: var(--yellow-light); color: #B7770D; }
+    .verdict.ng  { background: var(--red-light);    color: var(--red); }
+
+    .refuted-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 14px;
+    }
+    .refuted-item {
+      background: var(--red-light);
+      border-left: 4px solid var(--red);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: #7B241C;
+    }
+    .refuted-item::before { content: '✗ '; font-weight: 700; }
+
+    /* ===== TOOL CHART ===== */
+    .tool-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .tool-name {
+      width: 130px;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .tool-bar-wrap { flex: 1; background: var(--border); border-radius: 4px; height: 20px; }
+    .tool-bar {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--primary), #A89FFF);
+      transition: width 0.6s ease;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+    }
+    .tool-bar span { font-size: 11px; font-weight: 700; color: white; }
+    .tool-cat {
+      font-size: 11px;
+      color: var(--gray);
+      width: 80px;
+      flex-shrink: 0;
+      text-align: right;
+    }
+
+    /* ===== OPEN QUESTIONS ===== */
+    .question-list { list-style: none; }
+    .question-list li {
+      padding: 14px 18px;
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      box-shadow: var(--shadow);
+      font-size: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .question-list li::before {
+      content: '?';
+      background: var(--yellow);
+      color: white;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 28px;
+      font-size: 13px;
+      margin-top: 40px;
+    }
+    footer strong { color: rgba(255,255,255,0.8); }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 8px 0;
+    }
+
+    @media (max-width: 600px) {
+      .workflow-step:not(:last-child)::after { display: none; }
+      .hero { padding: 40px 16px 32px; }
+      .section-header h2 { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="badge">Deep Research Report</div>
+  <h1>AI×動画編集<br><span>Udemy教材調査レポート</span></h1>
+  <p class="subtitle">生成AIを使った動画制作に関するUdemyコースを横断調査し、「プロ的な仕上げ」まで学べるかを検証した結果をまとめています。</p>
+  <div class="hero-meta">
+    <div class="chip">調査日 <strong>2026年5月31日</strong></div>
+    <div class="chip">調査コース <strong>10本</strong></div>
+    <div class="chip">検証ソース <strong>41件</strong></div>
+    <div class="chip">主張の検証 <strong>104件を3票制で採否判定</strong></div>
+  </div>
+</div>
+
+<!-- ===== PART1: SUMMARY ===== -->
+<div class="container">
+  <section>
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <h2>調査の結論（まず読んでほしいこと）</h2>
+    </div>
+
+    <div class="summary-box">
+      Udemyの「AI×動画編集」コースは、<strong>「どうAI動画を生成するか」を教えるものがほぼ全て</strong>です。
+      「生成したAI動画をPremiere ProなどのプロのNLE（動画編集ソフト）に取り込み、一つの作品として仕上げる」というステップは、
+      現時点では<strong>どのコースにも含まれていません</strong>。
+      これは各コースの問題ではなく、そもそも<strong>その方法論がまだ業界で体系化されていない</strong>ことが原因です。
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
+      <div class="alert info">
+        <div class="alert-icon">✅</div>
+        <div><strong>コースで学べること</strong><br>Runway / Sora / Kling / Pika などのAI動画生成ツールの操作方法と、ツールを組み合わせた動画生成のワークフロー</div>
+      </div>
+      <div class="alert danger">
+        <div class="alert-icon">❌</div>
+        <div><strong>コースで学べないこと</strong><br>AI素材をPremiere Pro等のNLEに取り込んでのカット編集・カラグレ・音響設計・作品としての仕上げ方</div>
+      </div>
+      <div class="alert warning">
+        <div class="alert-icon">⚠️</div>
+        <div><strong>注意が必要なこと</strong><br>「AI×編集ワークフロー」に関するネット上の情報の約<strong>75%は誇大・虚偽</strong>。3票制検証で事実確認した情報のみを掲載しています。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PART2: COURSES ===== -->
+  <section>
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <h2>調査したUdemyコース一覧</h2>
+    </div>
+
+    <p style="font-size:14px; color:var(--gray); margin-bottom:24px;">★4.0以上のコースを中心に、日本語・英語あわせて10本を調査しました。</p>
+
+    <!-- Top course -->
+    <div class="course-card top" style="margin-bottom:20px;">
+      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+        <span style="background:#FFB700; color:white; font-size:11px; font-weight:700; padding:3px 10px; border-radius:4px;">👑 最大規模</span>
+        <span class="tag lang-en">英語</span>
+        <span class="tag">初心者〜上級</span>
+        <span class="tag">29時間14分</span>
+      </div>
+      <div class="course-title">
+        <a href="https://www.udemy.com/course/ai-video-school/" target="_blank">AI Video School: Complete Beginner to Pro — Dan Britain</a>
+      </div>
+      <div class="stars">
+        <span>⭐⭐⭐⭐⭐</span>
+        <span class="score">4.5</span>
+        <span class="count">（4,277件レビュー・27,892人受講）</span>
+      </div>
+      <div class="tools-list">
+        <span class="tool-chip">Runway</span><span class="tool-chip">Veo 3.1</span><span class="tool-chip">Kling</span>
+        <span class="tool-chip">Sora</span><span class="tool-chip">Pika</span><span class="tool-chip">HeyGen</span>
+        <span class="tool-chip">ElevenLabs</span><span class="tool-chip">Midjourney</span><span class="tool-chip">Suno</span>
+        <span class="tool-chip" style="background:#FFF0F0; color:#C0392B;">＋他多数（16セクション）</span>
+      </div>
+      <div class="review-bubble">
+        十数種類のAIツールを一通り学べる最も包括的なコース。ただし「編集ソフトでの仕上げ方」は含まれません。
+      </div>
+    </div>
+
+    <!-- Course grid -->
+    <div class="card-grid">
+
+      <div class="course-card">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span style="background:#E8F5E9; color:#2E7D32; font-size:11px; font-weight:700; padding:3px 10px; border-radius:4px;">⭐ 例示コース</span>
+          <span class="tag lang-ja">日本語</span>
+          <span class="tag">初心者</span>
+          <span class="tag">3時間15分</span>
+        </div>
+        <div class="course-title">
+          <a href="https://www.udemy.com/course/videogenai/" target="_blank">動画制作のための生成AI入門</a>
+        </div>
+        <div class="stars">
+          <span>⭐⭐⭐⭐⭐</span>
+          <span class="score">4.5</span>
+          <span class="count">（151件・1,132人）</span>
+        </div>
+        <div class="tools-list">
+          <span class="tool-chip">ChatGPT</span>
+          <span class="tool-chip">Runway Gen2</span>
+          <span class="tool-chip">Luma Dream Machine</span>
+        </div>
+        <div style="font-size:12px; color:var(--gray);">定価 12,800円</div>
+        <div class="review-bubble">「論理的にAIを理解出来て面白い」</div>
+      </div>
+
+      <div class="course-card">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span style="background:#EEF0FF; color:var(--primary); font-size:11px; font-weight:700; padding:3px 10px; border-radius:4px;">日本語最高評価</span>
+          <span class="tag lang-ja">日本語</span>
+        </div>
+        <div class="course-title">
+          <a href="https://www.udemy.com/course/ai-sora-n/" target="_blank">OpenAI Sora 2 完全入門 — ReeX Japan</a>
+        </div>
+        <div class="stars">
+          <span>⭐⭐⭐⭐⭐</span>
+          <span class="score">4.6</span>
+          <span class="count">（34件・198人）</span>
+        </div>
+        <div class="tools-list">
+          <span class="tool-chip">Sora 2</span>
+          <span class="tool-chip">Storyboard</span>
+          <span class="tool-chip">Re-cut</span>
+          <span class="tool-chip">Remix</span>
+          <span class="tool-chip">Blend</span>
+        </div>
+        <div class="review-bubble">「すべて真似するだけで実践できる。大変わかりやすい内容」</div>
+      </div>
+
+      <div class="course-card">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="tag lang-en">英語</span>
+          <span class="tag">ショート動画特化</span>
+        </div>
+        <div class="course-title">
+          <a href="https://www.udemy.com/course/master-viral-shorts-editing-chatgpt-capcut-elevenlabs/" target="_blank">CapCut Video Editing for Viral Shorts — Nonso Michael</a>
+        </div>
+        <div class="stars">
+          <span>⭐⭐⭐⭐⭐</span>
+          <span class="score">4.5</span>
+          <span class="count">（182件・12,226人）</span>
+        </div>
+        <div class="tools-list">
+          <span class="tool-chip">ChatGPT</span>
+          <span class="tool-chip">ElevenLabs</span>
+          <span class="tool-chip">CapCut</span>
+          <span class="tool-chip">TikTok/X</span>
+        </div>
+        <div style="font-size:12px; color:var(--gray);">台本→音声→編集の一気通貫ワークフロー</div>
+      </div>
+
+      <div class="course-card">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="tag lang-en">英語</span>
+        </div>
+        <div class="course-title">
+          <a href="https://www.udemy.com/course/capcut-chatgpt-generative-ai-video-editing-masterclass/" target="_blank">Advanced CapCut & Generative AI Masterclass — Passive Income Gen Z</a>
+        </div>
+        <div class="stars">
+          <span>⭐⭐⭐⭐</span>
+          <span class="score">4.1</span>
+          <span class="count">（109件・1,195人）</span>
+        </div>
+        <div class="tools-list">
+          <span class="tool-chip">CapCut</span><span class="tool-chip">ChatGPT</span>
+          <span class="tool-chip">DALL-E3</span><span class="tool-chip">Midjourney</span>
+          <span class="tool-chip">Leonardo</span><span class="tool-chip">Runway</span>
+          <span class="tool-chip">D-ID</span><span class="tool-chip">ElevenLabs</span>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="tag lang-en">英語</span>
+        </div>
+        <div class="course-title">
+          <a href="https://www.udemy.com/course/runway-ai-full-course-for-stunning-videos-ads-scenes/" target="_blank">AI Video Creation 2026 Pro — Danial Roshanfekr</a>
+        </div>
+        <div class="stars">
+          <span>⭐⭐⭐⭐</span>
+          <span class="score">4.0</span>
+          <span class="count">（58件・2,232人）</span>
+        </div>
+        <div class="tools-list">
+          <span class="tool-chip">Runway ML</span>
+          <span class="tool-chip">Sora 2</span>
+          <span class="tool-chip">Veo3</span>
+          <span class="tool-chip">Wan 2.5</span>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="tag lang-ja">日本語</span>
+          <span class="tag">初心者</span>
+          <span class="tag">58分</span>
+        </div>
+        <div class="course-title">
+          <a href="https://www.udemy.com/course/aipikaaisunoaiai/" target="_blank">Pika＆SunoAI入門講座 — AI YUKI</a>
+        </div>
+        <div class="stars">
+          <span>⭐⭐⭐⭐</span>
+          <span class="score">3.9</span>
+          <span class="count">（115件・734人）</span>
+        </div>
+        <div class="tools-list">
+          <span class="tool-chip">Pika</span>
+          <span class="tool-chip">SunoAI</span>
+        </div>
+        <div style="font-size:12px; color:var(--gray);">動画生成＋音楽生成の2ツールに特化</div>
+      </div>
+
+      <div class="course-card">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="tag lang-ja">日本語</span>
+          <span class="tag">初心者〜中級</span>
+        </div>
+        <div class="course-title">
+          <a href="https://www.udemy.com/course/ai-runway-gen3soraklingvrew-ai/" target="_blank">動画AI初級 総合コース（Veo3, Kling, Runway, Sora 等） — AIクリエイター にっち</a>
+        </div>
+        <div class="stars">
+          <span>⭐⭐⭐⭐</span>
+          <span class="score">3.9</span>
+          <span class="count">（9件・112人）</span>
+        </div>
+        <div class="tools-list">
+          <span class="tool-chip">Veo3</span><span class="tool-chip">Kling</span>
+          <span class="tool-chip">Runway</span><span class="tool-chip">Sora</span>
+          <span class="tool-chip">PixVerse</span><span class="tool-chip">Vrew</span>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="tag lang-en">英語</span>
+        </div>
+        <div class="course-title">
+          <a href="https://www.udemy.com/course/heygen-elevenlabs-create-viral-ai-videos-voiceovers/" target="_blank">HeyGen + ElevenLabs: Create Viral AI Videos — Chetan Pujari</a>
+        </div>
+        <div class="stars">
+          <span>⭐⭐⭐⭐</span>
+          <span class="score">3.7</span>
+          <span class="count">（18件・7,519人）</span>
+        </div>
+        <div class="tools-list">
+          <span class="tool-chip">HeyGen</span>
+          <span class="tool-chip">ElevenLabs</span>
+        </div>
+        <div style="font-size:12px; color:var(--gray);">アバター動画・音声クローンに特化</div>
+      </div>
+
+      <div class="course-card low">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span style="background:var(--red-light); color:var(--red); font-size:11px; font-weight:700; padding:3px 10px; border-radius:4px;">最低評価</span>
+          <span class="tag lang-ja">日本語</span>
+        </div>
+        <div class="course-title">
+          <a href="https://www.udemy.com/course/ai-runway/" target="_blank">動画生成AI完全攻略 | Runwayでプロの映像をつくる — kats design</a>
+        </div>
+        <div class="stars">
+          <span>⭐⭐</span>
+          <span class="score rating-low">2.7</span>
+          <span class="count">（5件・50人）</span>
+        </div>
+        <div class="tools-list">
+          <span class="tool-chip">Runway Gen-4</span>
+          <span class="tool-chip">Claude（プロンプト自動化）</span>
+        </div>
+        <div style="font-size:12px; color:var(--gray);">※レビュー数が少なく新興コース。評価は変動する可能性あり</div>
+      </div>
+
+    </div><!-- /card-grid -->
+  </section>
+
+  <!-- ===== PART3: TOOL CHART ===== -->
+  <section>
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <h2>コースで使われているAIツールの頻出度</h2>
+    </div>
+    <div class="card">
+      <p style="font-size:13px; color:var(--gray); margin-bottom:24px;">10コースを横断して登場回数が多いツールをカテゴリ別に表示しています。</p>
+
+      <div style="margin-bottom:8px; font-size:12px; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:0.05em;">動画生成</div>
+      <div class="tool-bar-row"><div class="tool-name">Runway</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:95%"><span>最頻出</span></div></div></div>
+      <div class="tool-bar-row"><div class="tool-name">Sora / Sora 2</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:85%"></div></div></div>
+      <div class="tool-bar-row"><div class="tool-name">Kling</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:80%"></div></div></div>
+      <div class="tool-bar-row"><div class="tool-name">Pika</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:70%"></div></div></div>
+      <div class="tool-bar-row"><div class="tool-name">Veo3 / Veo2</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:60%"></div></div></div>
+      <div class="tool-bar-row"><div class="tool-name">Luma Dream Machine</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:40%"></div></div></div>
+
+      <div class="divider" style="margin:20px 0;"></div>
+      <div style="margin-bottom:8px; font-size:12px; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:0.05em;">テキスト・台本</div>
+      <div class="tool-bar-row"><div class="tool-name">ChatGPT</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:90%"><span>定番</span></div></div></div>
+
+      <div class="divider" style="margin:20px 0;"></div>
+      <div style="margin-bottom:8px; font-size:12px; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:0.05em;">音声生成</div>
+      <div class="tool-bar-row"><div class="tool-name">ElevenLabs</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:85%"><span>ナレーション定番</span></div></div></div>
+      <div class="tool-bar-row"><div class="tool-name">Suno / Udio</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:45%"></div></div></div>
+
+      <div class="divider" style="margin:20px 0;"></div>
+      <div style="margin-bottom:8px; font-size:12px; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:0.05em;">アバター・リップシンク</div>
+      <div class="tool-bar-row"><div class="tool-name">HeyGen</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:55%"></div></div></div>
+      <div class="tool-bar-row"><div class="tool-name">D-ID</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:30%"></div></div></div>
+
+      <div class="divider" style="margin:20px 0;"></div>
+      <div style="margin-bottom:8px; font-size:12px; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:0.05em;">画像生成</div>
+      <div class="tool-bar-row"><div class="tool-name">Midjourney</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:60%"></div></div></div>
+      <div class="tool-bar-row"><div class="tool-name">DALL-E3</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:50%"></div></div></div>
+      <div class="tool-bar-row"><div class="tool-name">Adobe Firefly</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:40%"></div></div></div>
+
+      <div class="divider" style="margin:20px 0;"></div>
+      <div style="margin-bottom:8px; font-size:12px; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:0.05em;">編集ツール（NLEではなく簡易ツール）</div>
+      <div class="tool-bar-row"><div class="tool-name">CapCut</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:45%"></div></div></div>
+      <div class="tool-bar-row"><div class="tool-name">Vrew</div><div class="tool-bar-wrap"><div class="tool-bar" style="width:20%"></div></div></div>
+
+      <div class="alert warning" style="margin-top:24px;">
+        <div class="alert-icon">⚠️</div>
+        <div>Premiere Pro / DaVinci Resolve などの<strong>プロ向けNLEは一切登場しません</strong>。コース内で使われる「編集ツール」はCapCut（モバイル向けの簡易ツール）やVrew（自動カット専用）にとどまっています。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PART4: WORKFLOW ===== -->
+  <section>
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <h2>プロが使うべき：AI素材をNLEで仕上げる実践ワークフロー</h2>
+    </div>
+
+    <div class="summary-box">
+      調査を通じて事実確認できた唯一の実践ワークフローです。<strong>情報の75%が否定・誇大と判定されるなか、検証を通過した3つの知見</strong>を統合しています。対象はDaVinci Resolveです（Premiere Pro固有の知見は今回の調査では確認できませんでした）。
+    </div>
+
+    <div class="workflow">
+      <div class="workflow-step">
+        <div class="step-icon">🤖</div>
+        <div class="step-label">AI動画生成</div>
+        <div class="step-sub">Runway/Kling/Pika等<br>→ H.264 / MP4で出力</div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-icon">🔄</div>
+        <div class="step-label">トランスコード</div>
+        <div class="step-sub">ProRes 422 LT（Mac）<br>DNxHR HQ（Win）</div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-icon">✂️</div>
+        <div class="step-label">NLEで粗編集</div>
+        <div class="step-sub">DaVinci Resolve等<br>フリッカー部分は短カットで対処</div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-icon">🎨</div>
+        <div class="step-label">カラーマッチング</div>
+        <div class="step-sub">Colourlab AI（OFXプラグイン）<br>AI素材と実写のトーン統一</div>
+      </div>
+      <div class="workflow-step">
+        <div class="step-icon">🔊</div>
+        <div class="step-label">音響設計・書き出し</div>
+        <div class="step-sub">SE / BGM / ナレーション統合</div>
+      </div>
+    </div>
+
+    <!-- Finding cards -->
+    <div class="finding-card">
+      <div class="verdict ok">✓ 検証済み（確信度：高）</div>
+      <h4>Step 2：中間コーデックへのトランスコードが必須</h4>
+      <p>
+        Runway / Kling / Pika など主要AI動画ツールの多くはH.264（MP4）で出力します。
+        これをそのままDaVinci Resolveに取り込むとパフォーマンスが悪く、カラグレにも不向きです。
+        <strong>Macの場合はProRes 422 LT、WindowsはDNxHR HQ</strong>に変換してから編集するのがベストプラクティスとして確立されています。
+        カット編集のみならProRes Proxyでも可ですが、カラーグレーディングを行う場合は少し上のティアを選んでください。
+      </p>
+    </div>
+
+    <div class="finding-card">
+      <div class="verdict ok">✓ 検証済み（確信度：高）3票全員一致</div>
+      <h4>AI生成動画固有の問題：フリッカー・ジッター・手の崩れ</h4>
+      <p>
+        AI動画はフレーム間の整合性が取れていない部分で<strong>フリッカー（ちらつき）やジッター（震え）</strong>が発生します。
+        特に人物の手や指の動き（ジェスチャー）が不安定になりやすいことが学術論文レベルで確認されています。
+        <strong>対処法：</strong>問題箇所を短尺カットに分割する、カットアウェイを挿入して隠す、モーションブラーエフェクトで目立たなくする。
+        Runway Gen-4（2025年）など最新モデルでは改善傾向がありますが、2026年現在も継続的な課題です。
+      </p>
+    </div>
+
+    <div class="finding-card">
+      <div class="verdict med">△ 検証済み（確信度：中）</div>
+      <h4>Step 4：Colourlab AI でAI素材と実写のカラーを統一</h4>
+      <p>
+        AI生成素材と実写素材を同じタイムラインで混在させると色調が合いません。
+        <strong>Colourlab AI</strong>はDaVinci Resolve v18/19/20にOFXプラグインとして統合されており、
+        外部アプリへ書き出すことなくタイムライン上で直接カラーマッチングができます。
+        ベンダー発信の情報ですが第三者メディア（CG Channel 2024年10月）でも確認されています。
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== PART5: REFUTED ===== -->
+  <section>
+    <div class="section-header">
+      <div class="section-number">5</div>
+      <h2>否定された「よく聞く話」</h2>
+    </div>
+
+    <div class="alert danger" style="margin-bottom:24px;">
+      <div class="alert-icon">🚫</div>
+      <div>以下はネット上で広く流通していますが、<strong>3票制の敵対的検証で否定または証拠不十分と判定</strong>されました。鵜呑みにしないよう注意してください。</div>
+    </div>
+
+    <div class="refuted-list">
+      <div class="refuted-item">RunwayがAdobe Premiere Pro / After Effectsに直接統合される（0-3で否定）</div>
+      <div class="refuted-item">Topaz Video AIがPremiere Pro / DaVinci ResolveにNLEプラグインとして動作する（0-3で否定）</div>
+      <div class="refuted-item">AI動画は可変フレームレートで出力されNLEでコマ落ちが起きる（0-3で否定）</div>
+      <div class="refuted-item">AI動画にはProRes 4444 XQが推奨フォーマット（0-3で否定）</div>
+      <div class="refuted-item">AI動画をAIアップスケールで4K/8Kにすれば放送品質になる（1-2で弱否定）</div>
+      <div class="refuted-item">色彩補正は彩度を10-15%上げるだけで十分（0-3で否定）</div>
+      <div class="refuted-item">AI生成動画の後処理でモーフィングや不可能な動きを修正できる（0-3で否定）</div>
+    </div>
+  </section>
+
+  <!-- ===== PART6: OPEN QUESTIONS ===== -->
+  <section>
+    <div class="section-header">
+      <div class="section-number">6</div>
+      <h2>まだ答えが出ていない問い（2026年5月時点）</h2>
+    </div>
+
+    <p style="font-size:14px; color:var(--gray); margin-bottom:20px;">
+      これらは調査しても明確な答えが得られなかった領域です。裏を返せば、<strong>この分野の先行者になれる可能性がある領域</strong>でもあります。
+    </p>
+
+    <ul class="question-list">
+      <li>AI生成動画のフリッカー・ジッターをNLE（DaVinci ResolveのDeflicker、After EffectsのDe-Flicker等）で後処理修正する具体的な手順と効果に関する定量データはあるか？</li>
+      <li>RunwayやKlingなど異なるAIツールの素材を同一タイムラインで扱う際の色空間（Rec.709 vs SDR vs HDR）の統一ベストプラクティスは何か？</li>
+      <li>AI生成動画と実写素材を自然にブレンドするVFXコンポジット（マスキング・モーショントラッキング・グレインマッチング）の具体的手法に関して、実務VFXアーティストのコンセンサスはあるか？</li>
+      <li>Topaz Video AIなどをNLEプラグインとしてではなく「スタンドアロンの前処理ツール」として使う場合の品質向上効果は検証されているか？</li>
+    </ul>
+  </section>
+
+  <!-- ===== PART7: INSIGHT ===== -->
+  <section>
+    <div class="section-header">
+      <div class="section-number">7</div>
+      <h2>総評：この調査が示すこと</h2>
+    </div>
+
+    <div class="card">
+      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:20px;">
+        <div style="padding:20px; background:var(--green-light); border-radius:10px; border-left:4px solid var(--green);">
+          <div style="font-size:20px; margin-bottom:8px;">📚</div>
+          <div style="font-weight:700; margin-bottom:8px; color:#1E8449;">Udemyコースが得意なこと</div>
+          <div style="font-size:13px; line-height:1.7;">AIツールの操作方法を体系的に学ぶこと。初心者がRunway・Sora・KlingなどのAI動画生成ツールを一通り触れるようになるまでの学習には適している。</div>
+        </div>
+        <div style="padding:20px; background:var(--red-light); border-radius:10px; border-left:4px solid var(--red);">
+          <div style="font-size:20px; margin-bottom:8px;">🎬</div>
+          <div style="font-weight:700; margin-bottom:8px; color:#922B21;">Udemyコースが苦手なこと</div>
+          <div style="font-size:13px; line-height:1.7;">「AI素材をPremiere ProなどのNLEで仕上げてプロ品質の作品にする」というワークフロー。これを教えているコースは現時点で存在せず、業界全体で方法論が未確立。</div>
+        </div>
+        <div style="padding:20px; background:var(--yellow-light); border-radius:10px; border-left:4px solid var(--yellow);">
+          <div style="font-size:20px; margin-bottom:8px;">💡</div>
+          <div style="font-weight:700; margin-bottom:8px; color:#9A7D0A;">先行者優位の可能性</div>
+          <div style="font-size:13px; line-height:1.7;">「AI生成→NLEで仕上げ」のワークフローを体系化した教材・コンテンツはまだ市場にない。これを実践・発信できれば他のコース・情報発信者との明確な差別化になる。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /container -->
+
+<footer>
+  <strong>AI×動画編集 Udemy教材調査レポート</strong><br>
+  調査日: 2026年5月31日 ／ Deep Research（5検索アングル・41ソース取得・104主張を3票制で敵対的検証）<br>
+  ※ Udemyの評価・受講者数・価格は動的に変動します。掲載数値は調査時点のスナップショットです。
+</footer>
+
+</body>
+</html>
