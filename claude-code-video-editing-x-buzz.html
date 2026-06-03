@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code × 動画編集 ― Xバズ解説（2026-06-03）</title>
+<style>
+  :root{
+    --bg:#0f1420; --card:#1b2233; --card2:#222b40; --ink:#eef2fa;
+    --sub:#aab6cf; --line:#33405c; --accent:#5b8cff; --like:#ff6b8b; --view:#3fd4c8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+    line-height:1.8; font-size:16px;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:24px 16px 64px;}
+  header.page{
+    background:linear-gradient(135deg,#1d2b50,#142038); border:1px solid var(--line);
+    border-radius:16px; padding:24px 20px; margin-bottom:24px;
+  }
+  header.page h1{font-size:1.5rem; margin:0 0 8px; line-height:1.4;}
+  header.page p{margin:0; color:var(--sub); font-size:.95rem;}
+  .badge{display:inline-block; background:var(--accent); color:#fff; font-size:.75rem;
+    padding:3px 10px; border-radius:999px; margin-bottom:12px; font-weight:700;}
+  h2{font-size:1.2rem; margin:36px 0 14px; padding-left:12px; border-left:5px solid var(--accent);}
+  .terms{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px;}
+  .terms dl{margin:0;}
+  .terms dt{font-weight:700; color:var(--accent); margin-top:10px;}
+  .terms dt:first-child{margin-top:0;}
+  .terms dd{margin:2px 0 0; color:var(--sub); font-size:.95rem;}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:18px; margin-bottom:16px;
+  }
+  .card .top{display:flex; align-items:center; gap:12px; margin-bottom:10px; flex-wrap:wrap;}
+  .rank{
+    flex:0 0 auto; width:40px; height:40px; border-radius:50%;
+    background:var(--accent); color:#fff; font-weight:800; font-size:1.1rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .rank.gold{background:#f5b13d;} .rank.silver{background:#b9c2d6; color:#1b2233;} .rank.bronze{background:#c98a4b;}
+  .handle{font-weight:700; font-size:1.05rem; word-break:break-all;}
+  .card .summary{margin:6px 0 12px;}
+  .card .why{background:var(--card2); border-radius:10px; padding:10px 12px; font-size:.92rem; color:var(--sub); margin-bottom:14px;}
+  .why b{color:var(--ink);}
+  .metrics{display:flex; gap:18px; flex-wrap:wrap; margin-bottom:14px;}
+  .metric{display:flex; align-items:baseline; gap:6px;}
+  .metric .num{font-size:1.5rem; font-weight:800; line-height:1;}
+  .metric.like .num{color:var(--like);} .metric.view .num{color:var(--view);}
+  .metric .lbl{font-size:.8rem; color:var(--sub);}
+  .link{
+    display:inline-block; background:var(--accent); color:#fff; text-decoration:none;
+    padding:9px 16px; border-radius:10px; font-weight:700; font-size:.9rem; word-break:break-all;
+  }
+  .link:active{opacity:.7;}
+  ul.trend, ol.ideas{padding-left:1.2em;}
+  ul.trend li{margin-bottom:10px;}
+  ol.ideas li{margin-bottom:16px; background:var(--card); border:1px solid var(--line);
+    border-radius:12px; padding:12px 14px;}
+  ol.ideas .tip{display:block; margin-top:6px; color:var(--view); font-size:.88rem;}
+  footer{margin-top:40px; padding-top:18px; border-top:1px solid var(--line);
+    color:var(--sub); font-size:.82rem; line-height:1.7;}
+  footer code{background:var(--card2); padding:2px 6px; border-radius:6px; word-break:break-all;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="page">
+    <span class="badge">Xバズ収集レポート</span>
+    <h1>Claude Code × 動画編集<br>いま伸びているX投稿まとめ</h1>
+    <p>2026年5月27日〜6月3日のX（旧Twitter）で、「Claude Code を使った動画編集」について反響が大きかった投稿を、初めての人にもわかるようにやさしく解説したページです。</p>
+  </header>
+
+  <h2>用語ミニ解説</h2>
+  <div class="terms">
+    <dl>
+      <dt>テロップ</dt>
+      <dd>動画の画面に出る文字（字幕やキャプション）のこと。</dd>
+      <dt>カット割り</dt>
+      <dd>動画をどこで切り、どの順番でつなぐかという「編集の組み立て」のこと。</dd>
+      <dt>ショート動画</dt>
+      <dd>15秒〜1分ほどの縦型の短い動画（TikTokやYouTubeショートなど）。</dd>
+      <dt>VibeCoding（バイブコーディング）</dt>
+      <dd>AIに「こんな感じで」と話しかける感覚で、コードやツールを作っていくやり方。</dd>
+      <dt>👍 いいね</dt>
+      <dd>投稿に「良い」と反応した人の数。共感の多さの目安。</dd>
+      <dt>👁 インプレッション（表示回数）</dt>
+      <dd>その投稿が画面に表示された回数。どれだけ多くの人に見られたかの目安。</dd>
+    </dl>
+  </div>
+
+  <h2>反響が大きかった投稿 TOP5</h2>
+
+  <div class="card">
+    <div class="top">
+      <div class="rank gold">1</div>
+      <div class="handle">@gibkun1</div>
+    </div>
+    <p class="summary">Claude Codeでテロップアニメーションのプリセットを一発生成。AIに理想の動きを伝えるだけで、動画編集の常識が変わるデモ動画を公開。</p>
+    <div class="why"><b>なぜ伸びた？（推測）</b> 動画編集者の「テロップ作業が面倒」という痛みに直撃し、具体的な生成例＋高品質デモ動画で視覚的に説得力があったため。</div>
+    <div class="metrics">
+      <div class="metric like"><span class="num">362</span><span class="lbl">👍 いいね</span></div>
+      <div class="metric view"><span class="num">33k超</span><span class="lbl">👁 表示回数</span></div>
+    </div>
+    <a class="link" href="https://x.com/gibkun1/status/2059939983058997549">投稿を見る ↗</a>
+  </div>
+
+  <div class="card">
+    <div class="top">
+      <div class="rank silver">2</div>
+      <div class="handle">@osuruko1977</div>
+    </div>
+    <p class="summary">Claude Codeに動画を渡すだけで、構成・カット割り・テンポ・色・編集まで全自動で分解し、自分用に作り直しも可能。AI×ショート動画アフィで月100万を狙える事例を紹介。</p>
+    <div class="why"><b>なぜ伸びた？（推測）</b> 成果数字（月100万）と「編集スキルゼロでもOK」というハードルの低さ＋実演動画で、すぐ真似できそうな再現性をアピールできたため。</div>
+    <div class="metrics">
+      <div class="metric like"><span class="num">147</span><span class="lbl">👍 いいね</span></div>
+      <div class="metric view"><span class="num">18k</span><span class="lbl">👁 表示回数</span></div>
+    </div>
+    <a class="link" href="https://x.com/osuruko1977/status/2061677571964821623">投稿を見る ↗</a>
+  </div>
+
+  <div class="card">
+    <div class="top">
+      <div class="rank bronze">3</div>
+      <div class="handle">@MakeAI_CEO</div>
+    </div>
+    <p class="summary">Claude Code×Hyperframes（無料）で、テロップ・カット・モーション編集までコードで実現。ChatGPTユーザー向けに「動画編集ならこれ」と具体ツールを推奨。</p>
+    <div class="why"><b>なぜ伸びた？（推測）</b> 実務で使える無料ツール＋「ChatGPTしか使ってない人、損してる」という強いキャッチコピーで拡散されたため。</div>
+    <div class="metrics">
+      <div class="metric like"><span class="num">120</span><span class="lbl">👍 いいね</span></div>
+      <div class="metric view"><span class="num">15k</span><span class="lbl">👁 表示回数</span></div>
+    </div>
+    <a class="link" href="https://x.com/MakeAI_CEO/status/2060923961500954699">投稿を見る ↗</a>
+  </div>
+
+  <div class="card">
+    <div class="top">
+      <div class="rank">4</div>
+      <div class="handle">@chiba_genjinda</div>
+    </div>
+    <p class="summary">Claude Codeで動画編集エディタをVibeCoding中。通常の編集感覚＋MCPで手直ししやすい。AIに0〜60を作らせ、手動で仕上げるワークフローを紹介。</p>
+    <div class="why"><b>なぜ伸びた？（推測）</b> 実践的な「AI＋手動ハイブリッド」手法とデモ動画で、編集者目線のリアルさが刺さったため。</div>
+    <div class="metrics">
+      <div class="metric like"><span class="num">7</span><span class="lbl">👍 いいね</span></div>
+      <div class="metric view"><span class="num">122</span><span class="lbl">👁 表示回数</span></div>
+    </div>
+    <a class="link" href="https://x.com/chiba_genjinda/status/2061064995174281429">投稿を見る ↗</a>
+  </div>
+
+  <div class="card">
+    <div class="top">
+      <div class="rank">5</div>
+      <div class="handle">@se_yakiimosan</div>
+    </div>
+    <p class="summary">Claude Codeでテーマを与えるだけで15秒動画を自動作成。美人キャラのショート動画生成例を公開（noteセミナーの題材にも）。</p>
+    <div class="why"><b>なぜ伸びた？（推測）</b> 短時間で高品質ショート動画が作れる即戦力感と「昼休みに作った」という親しみやすい投稿スタイルのため。</div>
+    <div class="metrics">
+      <div class="metric like"><span class="num">5</span><span class="lbl">👍 いいね</span></div>
+      <div class="metric view"><span class="num">484</span><span class="lbl">👁 表示回数</span></div>
+    </div>
+    <a class="link" href="https://x.com/se_yakiimosan/status/2060305725281513784">投稿を見る ↗</a>
+  </div>
+
+  <h2>いま起きているトレンド（3行まとめ）</h2>
+  <ul class="trend">
+    <li>Claude Codeを「ただのコード生成ツール」ではなく「動画編集の全工程を任せるエージェント」として活用する事例が急増。</li>
+    <li>特にテロップアニメ・カット割り・ショート動画自動生成で「スキルゼロでも高品質出力可能」という実績投稿が目立つ。</li>
+    <li>無料ツール（Hyperframesなど）と組み合わせたハイブリッドワークフローが支持され、編集者・YouTuber層で再現性が高い内容がバズりやすい。</li>
+  </ul>
+
+  <h2>自分の発信に使えるネタ案 3つ</h2>
+  <ol class="ideas">
+    <li>「Claude Codeに『この動画をTikTok用に再編集して』と指示したら、意外と自然なカット割りが出てきた話（Before/After動画付き）」
+      <span class="tip">真似のコツ：編集前と編集後を並べて見せると、効果がひと目で伝わります。</span>
+    </li>
+    <li>「動画編集スキルゼロの僕がClaude Codeだけで月◯本のショート動画を量産した手順（プロンプト例公開）」
+      <span class="tip">真似のコツ：実際に使った指示文（プロンプト）をそのまま載せると保存・シェアされやすいです。</span>
+    </li>
+    <li>「Hyperframes＋Claude Codeでテロップアニメを完全自動化したら、Premiere要らずになった件（生成例GIF付き）」
+      <span class="tip">真似のコツ：無料ツール名と「◯◯が要らなくなった」という変化を見せると刺さります。</span>
+    </li>
+  </ol>
+
+  <footer>
+    出典：Grok X Search ／ 収集日 2026-06-03<br>
+    元データのファイル名：<code>20260603_Xバズ_Claude_Code_動画編集.md</code><br>
+    ※ 数値・アカウント名・投稿URLは元データのまま記載しています。「なぜ伸びたか」は推測です。
+  </footer>
+
+</div>
+</body>
+</html>
