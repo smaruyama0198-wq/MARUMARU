@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>週次AI動画ダイジェスト 2026-10-12</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--ink:#1d1d1f;--sub:#5f6368;--line:#e3e3e0;--accent:#2f5bd3;--warn:#b25b00;--warnbg:#fff4e5;--tag:#eef2fc}
+@media (prefers-color-scheme:dark){:root{--bg:#141416;--card:#1e1e21;--ink:#ececec;--sub:#a0a0a8;--line:#333338;--accent:#8aa8ff;--warn:#ffb35c;--warnbg:#2e2412;--tag:#232a3d}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.75;font-size:16px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:1.6rem;line-height:1.35;margin:.2em 0}
+h2{font-size:1.2rem;margin:2.2em 0 .8em;padding-bottom:.3em;border-bottom:2px solid var(--line)}
+h3{font-size:1.05rem;margin:0 0 .4em}
+.meta{color:var(--sub);font-size:.88rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
+.date{display:inline-block;background:var(--tag);color:var(--accent);font-size:.78rem;padding:1px 8px;border-radius:99px;margin-bottom:6px}
+.why{font-size:.92rem;color:var(--sub);border-left:3px solid var(--accent);padding-left:10px;margin-top:8px}
+.uc{display:inline-block;background:var(--warnbg);color:var(--warn);font-size:.75rem;padding:0 6px;border-radius:4px;font-weight:600}
+.src{font-size:.8rem;word-break:break-all;color:var(--sub)}
+a{color:var(--accent)}
+ul{padding-left:1.2em;margin:.4em 0}
+.post{border-top:1px solid var(--line);padding:10px 0}
+.post:first-child{border-top:0}
+.acct{font-weight:700}
+.num{font-size:.8rem;color:var(--sub)}
+ol.trend li,ol.idea li{margin-bottom:.8em}
+.note{background:var(--warnbg);border-radius:8px;padding:10px 12px;font-size:.88rem}
+.stat{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.stat div{flex:1 1 140px;background:var(--tag);border-radius:8px;padding:8px 10px}
+.stat b{display:block;font-size:1.3rem;color:var(--accent)}
+.stat span{font-size:.78rem;color:var(--sub)}
+</style>
+</head>
+<body>
+<main>
+<p class="meta">リサーチャーAI社員・週次レポート</p>
+<h1>週次AI動画ダイジェスト<br>2026-10-12</h1>
+<p class="meta">作成日 2026-10-12 ／ 対象: Web 2026-09-28〜10-12（前回10-10版以降の新情報が中心）・X 2026-10-05〜10-12</p>
+
+<div class="note">前回版（10-10）から2日しか空いていないため、GPT-6 Intelligent UI・Vidu Q4・Filmora 16 などは前回版を参照してください。<span class="uc">未確認</span> は一次情報にあたれなかったもの、「推測」は筆者の見立てです。</div>
+
+<h2>今週のトレンド3行</h2>
+<ol class="trend">
+<li><b>「AIで編集完了」派と「全部は無理」派の論争が本格化。</b> 「動画編集は完全終了」と「AIだけでは改善できない」という投稿が同じ週に並び、「1日→30分→10分」という時短の実例も広がった。</li>
+<li><b>“動画を作る”手段が生成モデル以外にも広がった。</b> Claude Motion はコードでアニメを組んでMP4に書き出す。Google Vids は編集画面を改善した。実写を生成するモデルとは別に、「直せる・崩れない」図解動画の道具が増えている（推測）。</li>
+<li><b>AGIの話題は「成果の公開」と「検証待ち」がセット。</b> OpenAI が数学の原稿を722本公開した（Lean で形式化済みは162本）。一方で、外部からの検証やモデル非公開の問題も同時に指摘されている。</li>
+</ol>
+
+<h2>Web の最新トピック</h2>
+
+<div class="card">
+<span class="date">2026-10-08</span>
+<h3>Anthropic「Claude Motion」ベータ：プロンプトから“編集できるアニメ動画”</h3>
+<ul>
+<li>素材やプロンプトから、短いアニメーションの解説動画を作る機能。動画生成モデルは使わず、Claude が<b>コードとして</b>テキスト・グラフ・図形・画像を動かす。生成した実写映像やAIの人物は入らない。</li>
+<li>プロンプトで修正でき、<b>MP4で書き出し</b>可能。コードなので、文言・数値・タイミングを1か所だけ直せる。</li>
+<li>Team / Enterprise 向けのベータ。Team は最初からオン、Enterprise は管理者が有効化する。</li>
+<li>Adobe・Runway・Luma・Descript へ引き継げるという報道あり <span class="uc">未確認</span></li>
+</ul>
+<p class="why">動画編集との関係（推測）：図解・数字アニメ・テロップ系の“モーショングラフィックスの下書き”をチャットで作れる。After Effects でやっていた簡単な作業の代わりになりうる。</p>
+<p class="src">出典: <a href="https://support.claude.com/en/articles/17454997-get-started-with-claude-motion">support.claude.com（公式ヘルプ）</a> ／ <a href="https://money.usnews.com/investing/news/articles/2026-10-08/anthropic-launches-dashboard-animation-tools-for-claude">US News / Reuters（2026-10-08）</a></p>
+</div>
+
+<div class="card">
+<span class="date">2026-10-06</span>
+<h3>Google Vids「ポイント・イン・タイム編集」</h3>
+<ul>
+<li>キャンバスに「今の再生位置で映っている要素だけ」を表示する。重なったテキスト・ステッカー・画像で画面が散らからない。</li>
+<li>タイムライン上のオブジェクトトラックをクリックすると、再生ヘッドがそこへ移動する。シーンを分割する必要がなくなる。</li>
+<li>展開: Rapid Release は 9/29 から段階的に（表示まで最大15日）、Scheduled Release は <b>10/13</b> から全面展開（1〜3日）。</li>
+</ul>
+<p class="why">AI機能そのものではなく、編集画面の改善。</p>
+<p class="src">出典: <a href="https://workspaceupdates.googleblog.com/2026/10/point-in-time-editing-now-available-in-Google-Vids.html">Google Workspace Updates（2026-10-06）</a></p>
+</div>
+
+<div class="card">
+<span class="date">2026-10-06</span>
+<h3>OpenAI：未公開モデルが書いた数学の原稿722本を公開</h3>
+<div class="stat">
+<div><b>722</b><span>原稿数（372ファミリー）</span></div>
+<div><b>約4,000</b><span>投げた問題数</span></div>
+<div><b>162</b><span>Lean形式化済み（約22%）</span></div>
+<div><b>約3時間</b><span>1件あたり平均計算</span></div>
+</div>
+<ul>
+<li>GitHub の <code>openai/math</code> で公開（Apache-2.0）。</li>
+<li>「ほぼ単一のプロンプト・単一のエージェントで出た」はOpenAI側の説明。モデルが公開されるまで外部から検証できないとの指摘がある。プロンプトとモデル名は非公開。</li>
+</ul>
+<p class="src">出典: <a href="https://github.com/openai/math">github.com/openai/math</a> ／ <a href="https://decrypt.co/380366/openai-secret-ai-model-cracked-hundreds-math-problems-one-prompt">Decrypt（2026-10-07）</a> ／ <a href="https://www.unite.ai/openai-releases-722-math-manuscripts-from-an-unreleased-ai-model/">Unite.AI</a></p>
+</div>
+
+<div class="card">
+<span class="date">GA／Lite版は10-08との情報</span>
+<h3>xAI Grok Imagine Video 1.5：正式提供（Lite版は未確認）</h3>
+<ul>
+<li>公式: プレビューを終え、API で <code>grok-imagine-video-1.5</code> として一般提供。画像から動画、参照画像<b>最大14枚</b>＋音声参照<b>3つ</b>、先頭・末尾・途中フレームの固定に対応。最長<b>15秒</b>。</li>
+<li>「Video 1.5 Lite が 10/8 リリース、$0.02/秒〜」という二次情報あり。xAI Docs には記載が見当たらない <span class="uc">未確認</span></li>
+</ul>
+<p class="src">出典: <a href="https://x.ai/news/grok-imagine-video-1-5">x.ai/news</a> ／ <a href="https://docs.x.ai/developers/model-capabilities/imagine">docs.x.ai</a> ／ <a href="https://llmgateway.io/timeline">LLM Gateway（二次）</a></p>
+</div>
+
+<div class="card">
+<span class="date">10-12時点</span>
+<h3>Kling 4.0：正式ローンチは「10月」のまま、日付は未発表</h3>
+<ul>
+<li>仕様（最長30秒・4K 10bit HDR・ステレオ音声・参照15個・キーフレーム10枚）は前回から変わらず。</li>
+<li>正式ローンチ日・価格・API提供時期は未発表。Flash版を先に使える範囲は情報が食い違っている <span class="uc">未確認</span></li>
+</ul>
+<p class="src">出典: <a href="https://kling.ai/blog/kling-4-vs-3">kling.ai（2026-09-30・公式）</a> ／ <a href="https://phemex.com/news/article/kling-ai-launches-kling-40-closed-beta-ahead-of-october-release-98151">Phemex（二次）</a></p>
+</div>
+
+<div class="card">
+<span class="date">プライベートプレビュー</span>
+<h3>HeyGen Voice：HeyGen 自社の音声モデル</h3>
+<ul>
+<li>話者ごとに専用アダプタを学習する。プロ用のクローンには同じ話者の録音が1〜10本・合計<b>20分以上</b>必要。出力は 44.1kHz WAV またはストリーミング（単語ごとのタイムスタンプも可）。</li>
+<li>「10/9リリース、Voice Arena で Elo 1,201 の1位、$30/100万文字」は二次情報 <span class="uc">未確認</span></li>
+</ul>
+<p class="src">出典: <a href="https://developers.heygen.com/docs/models/heygen-voice">HeyGen Developers（公式）</a> ／ <a href="https://alphasignal.ai/news/heygen-voice-beats-elevenlabs-and-alibaba-to-top-tts-rankings">AlphaSignal（二次）</a></p>
+</div>
+
+<div class="card">
+<span class="date">2026-09-28〜09-30</span>
+<h3>モバイル編集アプリの小さなアップデート</h3>
+<ul>
+<li><b>Final Cut Camera 2.4</b>（9/29）: ビデオスコープ、フォーカスピーキング、タリーライト、iPhone 18 Pro の可変絞り。</li>
+<li><b>Final Cut Pro for iPad 3.4</b>（9/29）: 撮影後にシネマティックモードのピント・被写界深度を編集。</li>
+<li><b>Instagram Edits アシスタント</b>（9/30）: 米国の全ユーザーへ。分析と提案のみで、編集はしない。</li>
+<li><b>OpusClip</b>（9/28・9/30）: アニメ付きローワーサード12種、Pinterest／Threads／Bluesky への投稿、音声の取り込み。</li>
+</ul>
+<p class="src">出典: <a href="https://captionsbro.app/blog/mobile-video-editing-news-2026-10-01/">CaptionsBro まとめ</a> ／ <a href="https://support.apple.com/en-us/120849">Apple</a> ／ <a href="https://support.apple.com/en-us/102731">Apple</a> ／ <a href="https://creators.instagram.com/blog/edits-assistant/">Instagram</a> ／ <a href="https://opusclip.canny.io/changelog">OpusClip</a></p>
+</div>
+
+<div class="card">
+<h3>動きなし・未確認</h3>
+<ul>
+<li>Runway changelog: 10/3〜10/12 の新しい項目なし（最新は 10/2）。</li>
+<li>Adobe MAX 2026 での Premiere／Firefly の新発表: 見つからず <span class="uc">未確認</span></li>
+<li>Synthesia「Syren」: 一次情報なし <span class="uc">未確認</span></li>
+</ul>
+</div>
+
+<h2>X バズ要約（10/5〜10/12）</h2>
+<p class="meta">今回の Grok 出力には 👍/👁 の数値がなかったため、すべて「数値なし」です。並びは Grok の「反響が大きい順」。</p>
+
+<div class="card">
+<h3>AI 動画編集</h3>
+<div class="post"><span class="acct">@starriver0513</span> <span class="num">👍/👁 数値なし</span><br>「AI動画編集の衝撃に備えよ」。MacBookに120万円投資した理由を解説し、「Opus5.5のAI動画編集・生成機能」で「動画編集は完全終了」と主張。<br><span class="uc">未確認</span> Opus 5.5 そのものに動画編集・生成機能があるかは未確認（Claude Code などと組み合わせた話の可能性＝推測）<br><a class="src" href="https://x.com/starriver0513/status/2109229758018105582">x.com/starriver0513/status/2109229758018105582</a></div>
+<div class="post"><span class="acct">@fumanpnp</span> <span class="num">👍/👁 数値なし</span><br>「AIで全部できる」に疑問。YouTube編集は変数が多く、AIエージェントの裏側を知らないと改善できないと警鐘。<br><a class="src" href="https://x.com/fumanpnp/status/2109196116982165630">x.com/fumanpnp/status/2109196116982165630</a></div>
+<div class="post"><span class="acct">@IHayato</span> <span class="num">👍/👁 数値なし</span><br>丸1日かかっていた編集が、AI自動編集スキルで30分に。次回は10分で可能に。<br><a class="src" href="https://x.com/IHayato/status/2109245926808457365">x.com/IHayato/status/2109245926808457365</a></div>
+<div class="post"><span class="acct">@starriver0513</span> <span class="num">👍/👁 数値なし</span><br>編集だけでなく生成も「やばい」。講座でスキルを配る可能性を示唆。<br><a class="src" href="https://x.com/starriver0513/status/2109232147995459586">x.com/starriver0513/status/2109232147995459586</a></div>
+<div class="post"><span class="acct">@shupeiman</span> <span class="num">👍/👁 数値なし</span><br>AI動画編集の時短術を記事リンクで共有。<br><a class="src" href="https://x.com/shupeiman/status/2108046360016744875">x.com/shupeiman/status/2108046360016744875</a></div>
+<div class="post"><span class="acct">@maxpostingx</span> <span class="num">👍/👁 数値なし</span><br>Runway・Descript・ElevenLabs など40のAI動画・音声ツールを一覧化。<br><a class="src" href="https://x.com/maxpostingx/status/2107294546342379846">x.com/maxpostingx/status/2107294546342379846</a></div>
+</div>
+
+<div class="card">
+<h3>AGI 最新</h3>
+<div class="post"><span class="acct">@Segah02457547</span> <span class="num">👍/👁 数値なし</span><br>「AGIでシンギュラリティ」を信じる層を「救済宗教みたい」と批判。<br><a class="src" href="https://x.com/Segah02457547/status/2108094326387712193">x.com/Segah02457547/status/2108094326387712193</a></div>
+<div class="post"><span class="acct">@ytk_matsuda</span> <span class="num">👍/👁 数値なし</span><br>孫正義氏「2035年に人間の脳の1万倍賢いASI。残り10年で準備を」を動画でまとめ。<br><a class="src" href="https://x.com/ytk_matsuda/status/2107536713535115526">x.com/ytk_matsuda/status/2107536713535115526</a></div>
+<div class="post"><span class="acct">@proica1</span> <span class="num">👍/👁 数値なし</span><br>Claude が紫外線で全天マッピングに成功したニュースを引用し「feel the AGI」。<span class="uc">元ニュース未確認</span><br><a class="src" href="https://x.com/proica1/status/2108455423166865507">x.com/proica1/status/2108455423166865507</a></div>
+<div class="post"><span class="acct">@proica1</span> <span class="num">👍/👁 数値なし</span><br>ハーバードの物理学者が Claude と3か月で18分野36本の論文を作った事例。<span class="uc">元ニュース未確認</span><br><a class="src" href="https://x.com/proica1/status/2107788023559553398">x.com/proica1/status/2107788023559553398</a></div>
+<div class="post"><span class="acct">@shields_pikes</span> <span class="num">👍/👁 数値なし</span><br>「AGIは普通に達成されるが、救済思想はヤバい」を再投稿。<br><a class="src" href="https://x.com/shields_pikes/status/2108115540602761524">x.com/shields_pikes/status/2108115540602761524</a></div>
+</div>
+
+<h2>発信に使えるネタ案</h2>
+<ol class="idea">
+<li><b>「AIで編集は終わる？」検証ショート</b><br>2つの対立する主張を並べ、自作スキル（/cut・/srt・ai-telop2）で1本作る。「AIに任せた部分／人が直した部分／かかった時間」を画面で見せて、「1日→30分」の事例と比べる。</li>
+<li><b>Claude Motion で“図解テロップ”を作ってみた</b><br>数字アニメ・チャートを Claude Motion で作り、MP4をPremiereに読み込むまでを紹介する（Team/Enterprise のベータ限定と明記）。After Effects で作る場合との手間を比べる。</li>
+<li><b>「AGIの成果、どこまで本当？」解説スレッド</b><br>OpenAI の 4,000問→722本→Lean形式化162本 を数字で分解し、「公開された成果」と「まだ検証されていない部分」を分けて説明する。孫正義氏の2035年ASI発言のバズと並べる。</li>
+</ol>
+
+<h2>出典一覧</h2>
+<ul class="src">
+<li><a href="https://support.claude.com/en/articles/17454997-get-started-with-claude-motion">https://support.claude.com/en/articles/17454997-get-started-with-claude-motion</a></li>
+<li><a href="https://money.usnews.com/investing/news/articles/2026-10-08/anthropic-launches-dashboard-animation-tools-for-claude">https://money.usnews.com/investing/news/articles/2026-10-08/anthropic-launches-dashboard-animation-tools-for-claude</a></li>
+<li><a href="https://workspaceupdates.googleblog.com/2026/10/point-in-time-editing-now-available-in-Google-Vids.html">https://workspaceupdates.googleblog.com/2026/10/point-in-time-editing-now-available-in-Google-Vids.html</a></li>
+<li><a href="https://github.com/openai/math">https://github.com/openai/math</a></li>
+<li><a href="https://decrypt.co/380366/openai-secret-ai-model-cracked-hundreds-math-problems-one-prompt">https://decrypt.co/380366/openai-secret-ai-model-cracked-hundreds-math-problems-one-prompt</a></li>
+<li><a href="https://www.unite.ai/openai-releases-722-math-manuscripts-from-an-unreleased-ai-model/">https://www.unite.ai/openai-releases-722-math-manuscripts-from-an-unreleased-ai-model/</a></li>
+<li><a href="https://x.ai/news/grok-imagine-video-1-5">https://x.ai/news/grok-imagine-video-1-5</a></li>
+<li><a href="https://docs.x.ai/developers/model-capabilities/imagine">https://docs.x.ai/developers/model-capabilities/imagine</a></li>
+<li><a href="https://llmgateway.io/timeline">https://llmgateway.io/timeline</a>（二次）</li>
+<li><a href="https://kling.ai/blog/kling-4-vs-3">https://kling.ai/blog/kling-4-vs-3</a></li>
+<li><a href="https://phemex.com/news/article/kling-ai-launches-kling-40-closed-beta-ahead-of-october-release-98151">https://phemex.com/news/article/kling-ai-launches-kling-40-closed-beta-ahead-of-october-release-98151</a>（二次）</li>
+<li><a href="https://developers.heygen.com/docs/models/heygen-voice">https://developers.heygen.com/docs/models/heygen-voice</a></li>
+<li><a href="https://alphasignal.ai/news/heygen-voice-beats-elevenlabs-and-alibaba-to-top-tts-rankings">https://alphasignal.ai/news/heygen-voice-beats-elevenlabs-and-alibaba-to-top-tts-rankings</a>（二次）</li>
+<li><a href="https://captionsbro.app/blog/mobile-video-editing-news-2026-10-01/">https://captionsbro.app/blog/mobile-video-editing-news-2026-10-01/</a></li>
+<li><a href="https://support.apple.com/en-us/120849">https://support.apple.com/en-us/120849</a> ／ <a href="https://support.apple.com/en-us/102731">https://support.apple.com/en-us/102731</a></li>
+<li><a href="https://creators.instagram.com/blog/edits-assistant/">https://creators.instagram.com/blog/edits-assistant/</a></li>
+<li><a href="https://opusclip.canny.io/changelog">https://opusclip.canny.io/changelog</a></li>
+<li><a href="https://runway.com/changelog">https://runway.com/changelog</a></li>
+</ul>
+<p class="meta" style="margin-top:32px">収集: WebSearch/WebFetch ＋ Grok X Search（grok-4.3）。数値・URL・アカウント名は収集元のまま。</p>
+</main>
+</body>
+</html>
